@@ -608,6 +608,7 @@ bool GenerateWgsl(const tint::Program* program, const Options& options) {
         PrintHash(hash);
     }
 
+#if TINT_BUILD_WGSL_READER
     if (options.validate && options.skip_hash.count(hash) == 0) {
         // Attempt to re-parse the output program with Tint's WGSL reader.
         auto source = std::make_unique<tint::Source::File>(options.input_filename, result.wgsl);
@@ -619,6 +620,7 @@ bool GenerateWgsl(const tint::Program* program, const Options& options) {
             return false;
         }
     }
+#endif
 
     return true;
 #else
