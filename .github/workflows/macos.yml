@@ -20,7 +20,7 @@ jobs:
     - name: Brew Install
       run: brew install ninja
     - name: Get Depot Tools
-      run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+      run: git clone git@github.com:Kode/depot_tools.git
     - name: Add Depot Tools to the path
       run: echo "./depot_tools" >> $GITHUB_PATH
     - name: Bootstrap gclient configuration
