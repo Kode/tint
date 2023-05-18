@@ -27,3 +27,35 @@ jobs:
         DEPOT_TOOLS_WIN_TOOLCHAIN: 0
     - name: Compile
       run: mkdir -p out\Release && cd out\Release && cmake -DCMAKE_BUILD_TYPE=Release -GNinja ../.. && ninja
+
+    - name: Get KincTools_windows_x64
+      run: git clone https://github.com/Kode/KincTools_windows_x64.git
+    - name: Copy binary
+      run: copy out\Release\tint.exe KincTools_windows_x64\tint.exe
+    - name: Set name
+      run: git config --global user.name "Robbot"
+    - name: Set email
+      run: git config --global user.email "robbot2019@robdangero.us"
+    - name: Commit binary
+      id: commit
+      continue-on-error: true
+      run: git -C KincTools_windows_x64 commit -a -m "Update tint binary to ${env:GITHUB_SHA}."
+    - name: Tag binary
+      if: steps.commit.outcome == 'success'
+      run: git -C KincTools_windows_x64 tag tint_${env:GITHUB_SHA}
+    - name: Push binary
+      id: push1
+      if: steps.commit.outcome == 'success'
+      continue-on-error: true
+      run: git -C KincTools_windows_x64 push https://Kode-Robbot:${env:ROBBOT_PASS}@github.com/Kode/KincTools_windows_x64.git main --tags
+      env:
+        ROBBOT_PASS: ${{ secrets.ROBBOT_PASS }}
+    - name: Pull
+      if: steps.commit.outcome == 'success' && steps.push1.outcome != 'success'
+      run: git -C KincTools_windows_x64 pull --no-rebase
+    - name: Push binary again
+      if: steps.commit.outcome == 'success' && steps.push1.outcome != 'success'
+      continue-on-error: true
+      run: git -C KincTools_windows_x64 push https://Kode-Robbot:${env:ROBBOT_PASS}@github.com/Kode/KincTools_windows_x64.git main --tags
+      env:
+        ROBBOT_PASS: ${{ secrets.ROBBOT_PASS }}
