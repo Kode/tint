@@ -121,7 +121,8 @@ bool ExecutableExists(const std::string& path) {
     if (dbg_help) {
         if (FARPROC proc = GetProcAddress(dbg_help, "ImageNtHeader")) {
             using ImageNtHeaderPtr = decltype(&ImageNtHeader);
-            auto* image_nt_header = reinterpret_cast<ImageNtHeaderPtr>(proc)(addr_header);
+            ImageNtHeaderPtr fun = (ImageNtHeaderPtr)proc;
+            auto* image_nt_header = fun(addr_header);
             return image_nt_header != nullptr;
         }
     }
