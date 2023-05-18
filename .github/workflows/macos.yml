@@ -28,4 +28,4 @@ jobs:
     - name: Sync gclient
       run: gclient sync
     - name: Compile
-      run: mkdir -p out/Debug && cd out/Debug && cmake -GNinja ../.. && ninja
+      run: mkdir -p out/Release && cd out/Release && cmake -DCMAKE_BUILD_TYPE=Release -GNinja ../.. && ninja
