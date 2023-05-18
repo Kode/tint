@@ -1,0 +1,27 @@
+name: Windows
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+
+    runs-on: linux-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Get Depot Tools
+      run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+    - name: Add Depot Tools to the path
+      run: echo "./depot_tools" >> $GITHUB_PATH
+    - name: Bootstrap gclient configuration
+      run: cp standalone.gclient .gclient
+    - name: Sync gclient
+      run: gclient sync
+    - name: Compile
+      run: mkdir -p out/Debug && cd out/Debug && cmake -GNinja ../.. && ninja
