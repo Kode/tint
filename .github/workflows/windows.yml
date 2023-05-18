@@ -23,5 +23,7 @@ jobs:
       run: cp standalone.gclient .gclient
     - name: Sync gclient
       run: gclient sync
+      env:
+        DEPOT_TOOLS_WIN_TOOLCHAIN: 0
     - name: Compile
       run: mkdir -p out\Debug && cd out\Debug && cmake -GNinja ../.. && ninja
