@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Get Depot Tools
-      run: git clone git@github.com:Kode/depot_tools.git
+      run: git clone https://github.com/Kode/depot_tools.git
     - name: Add Depot Tools to the path
       run: Add-Content $env:GITHUB_PATH ".\depot_tools"
     - name: Bootstrap gclient configuration

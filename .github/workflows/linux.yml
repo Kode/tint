@@ -20,7 +20,7 @@ jobs:
     - name: Apt Install
       run: sudo apt-get install ninja-build --yes --quiet
     - name: Get Depot Tools
-      run: git clone git@github.com:Kode/depot_tools.git
+      run: git clone https://github.com/Kode/depot_tools.git
     - name: Add Depot Tools to the path
       run: echo "./depot_tools" >> $GITHUB_PATH
     - name: Bootstrap gclient configuration
