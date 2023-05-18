@@ -25,6 +25,7 @@ jobs:
     - name: Bootstrap gclient configuration
       run: cp standalone.gclient .gclient
     - name: Sync gclient
+      shell: pwsh
       run: gclient sync
     - name: Compile
       run: mkdir -p out\Debug && cd out\Debug && cmake -GNinja ../.. && ninja
