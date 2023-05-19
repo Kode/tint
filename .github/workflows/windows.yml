@@ -15,8 +15,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-    - name: Uninstall MinGW
-      run: choco uninstall mingw
+    - name: Uninstall MinGW and Perl
+      run: choco uninstall mingw strawberryperl
     - name: Install Ninja
       run: choco install ninja
     - name: Get Depot Tools
