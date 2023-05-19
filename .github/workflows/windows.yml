@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Uninstall MinGW
-      run: choco install mingw
+      run: choco uninstall mingw
     - name: Get Depot Tools
       run: git clone https://github.com/Kode/depot_tools.git
     - name: Add Depot Tools to the path
